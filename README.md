@@ -1,3 +1,3 @@
 # nodejspractise
 
-a micro service that receive json data and return filtered data with specified field.
+A micro service that receives json data and return filtered data with specified field.
