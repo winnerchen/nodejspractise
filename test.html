@@ -14,9 +14,37 @@
             data: JSON.stringify(GetJsonData()),
             success: function (data) {
                 //$("#user_msg").append(data);
-                console.log(data);
+
+                if(data==JSON.stringify(GetJsonResponse())){
+                    console.log("success");
+                }else{
+                    console.log("failed");
+                }
             },error:function(){
+                alert("data transmission failed");
+            }
+        });
+    }
+    function GetErrorResponse(){
+        $.ajax({
+            type: 'POST',
+            dataType: 'html',
+            url: 'http://www.yihengchen.com',
+            data: JSON.stringify({"name":"Chen"}),
+            success: function (data) {
+                //$("#user_msg").append(data);
                 alert("failed");
+
+            },error:function(xhr,data){
+                alert(data);
+                console.log(xhr.status);
+
+                if(xhr.status==400 ){
+                    console.log("success");
+                }else {
+                    console.log("failed");
+                }
+
             }
         });
     }
@@ -258,10 +286,62 @@
         };
         return json;
     }
+    function GetJsonResponse() {
+        var json = {
+            "response": [
+                {
+                    "image": "http://mybeautifulcatchupservice.com/img/shows/16KidsandCounting1280.jpg",
+                    "slug": "show/16kidsandcounting",
+                    "title": "16 Kids and Counting"
+                },
+                {
+                    "image": "http://mybeautifulcatchupservice.com/img/shows/TheTaste1280.jpg",
+                    "slug": "show/thetaste",
+                    "title": "The Taste"
+                },
+                {
+                    "image": "http://mybeautifulcatchupservice.com/img/shows/Thunderbirds_1280.jpg",
+                    "slug": "show/thunderbirds",
+                    "title": "Thunderbirds"
+                },
+                {
+                    "image": "http://mybeautifulcatchupservice.com/img/shows/ScoobyDoo1280.jpg",
+                    "slug": "show/scoobydoomysteryincorporated",
+                    "title": "Scooby-Doo! Mystery Incorporated"
+                },
+                {
+                    "image": "http://mybeautifulcatchupservice.com/img/shows/ToyHunter1280.jpg",
+                    "slug": "show/toyhunter",
+                    "title": "Toy Hunter"
+                },
+                {
+                    "image": "http://mybeautifulcatchupservice.com/img/shows/Worlds1280.jpg",
+                    "slug": "show/worlds",
+                    "title": "World's..."
+                },
+                {
+                    "image": "http://mybeautifulcatchupservice.com/img/shows/TheOriginals1280.jpg",
+                    "slug": "show/theoriginals",
+                    "title": "The Originals"
+                }
+            ]
+        };
+        return json;
+    }
+
+    function getErrorMsg(){
+        var json= {
+            "error": "Could not decode request: JSON parsing failed"
+        }
+        return json;
+    }
+
 
 </script>
 <body>
-    <input id="btnSend" type="button" value="Ajax submit" onclick="GetData()" />
-    <div id="disp"></div>
+    <input id="btnSend" type="button" value="Send Valid Data" onclick="GetData()" />
+    </br>
+    <input id="btn2Send" type="button" value="Send Invalid Data" onclick="GetErrorResponse()" />
+
 </body>
 </html>
